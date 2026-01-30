@@ -1,0 +1,329 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    color-scheme: light
+}
+
+h4 {
+    font-size:1.2rem;
+}
+
+#inputT:focus {
+    border-top: none !important;
+    box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .25);
+    z-index: 1;
+    position: relative
+}
+
+input[disabled],
+button[disabled] {
+    opacity: .5;
+    pointer-events: none
+}
+
+.page-container {
+    height: 100vh; 
+    overflow: hidden; 
+    position: relative;
+}
+
+.main-container {
+    max-width:400px; 
+    position: relative; 
+    top: -80px;
+}
+
+#challengeContainer {
+    position: relative
+}
+
+#closeBtn {
+    top: 18px; 
+    right: 18px; 
+    z-index:10; 
+    font-size:1.4rem; 
+    display:none;
+}
+
+#motion-alert {
+    position: absolute;
+    inset: 0;
+    display: none;
+    z-index: 2
+}
+
+#motion-alert.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+#preloader {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, .8);
+    z-index: 3
+}
+
+#preloader .spinner-border {
+    width:3rem;
+    height:3rem;
+}
+
+#preloader.active {
+    display: flex
+}
+
+.posture-container img {
+    width:60%;
+    margin-top:10px;
+}
+
+/* 
+* Challenge Block 
+*/
+#challengeBlock .challenge-img-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:1px solid #ccc!important;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    overflow:hidden;
+    background:#eee;
+}
+
+#challengeBlock .input-container {
+    border:1px solid #ccc!important;
+    border-top:0!important;
+}
+
+#challengeBlock .input-container input {
+    font-size:1rem;
+    padding-top:.70rem;
+    padding-bottom:.70rem;
+}
+
+
+/* 
+* Result Block 
+*/
+#resultBlock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#resultBlock #resultOTP {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+    font-size: 3rem;
+}
+
+#resultBlock #resultOTP #copyOtpBtn {
+    font-size:1.4rem;
+    line-height:1;
+}
+
+
+#resultBlock #resultStatus {
+    font-size: 1.5rem
+}
+
+
+.stage {
+    position: absolute;
+    inset: 0;
+    transition: transform .45s cubic-bezier(.36, .66, .04, 1), opacity .35s ease;
+    will-change: transform, opacity
+}
+
+.hidden-next {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none
+}
+
+.hidden-prev {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none
+}
+
+.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto
+}
+
+.anim {
+    opacity: 0;
+    transform: translateY(40px);
+    will-change: transform, opacity
+}
+
+.anim.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform .45s cubic-bezier(.25, .8, .25, 1), opacity .4s ease
+}
+
+
+#resetStage,
+#disableStage {
+    margin-top: 50px;
+}
+
+::placeholder {
+    color: #999 !important;
+    opacity: 1;
+}
+
+:root {
+    --hide-distance: 100px;
+}
+
+.stage.hidden-next,
+.stage.hidden-prev {
+    transition:
+        opacity .25s ease-out,
+        transform .35s cubic-bezier(.25, .8, .25, 1);
+}
+
+.stage.hidden-next {
+    transform: translateY(var(--hide-distance));
+}
+
+.stage.hidden-prev {
+    transform: translateY(calc(-1 * var(--hide-distance)));
+}
+
+#copyIcon {
+    transition: stroke 0.24s;
+}
+
+.form-check-input {
+    width: 1.4em;
+    height: 1.4em;
+    border: 1px solid #bbb;
+    /* same gray as Bootstrap inputs (#ced4da is lighter) */
+}
+
+#disableLink {
+    margin-top: 265px;
+}
+#resetLink {
+    margin-top: 230px;
+}
+
+/* Reset Account Now Modal */
+.custom-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.custom-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.custom-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+}
+
+.custom-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.custom-modal-close:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.custom-modal-content h5 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.custom-modal-content p {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.custom-modal-loader {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    z-index: 10001;
+}
+
+.custom-modal-loader.active {
+    display: flex;
+}
+
+.custom-modal-loader .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+@media(max-height:700px) {
+    .container {
+        padding-top: 2vh !important
+    }
+}
