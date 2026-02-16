@@ -26,23 +26,24 @@ Each IAM has its own steps, so check out yours below:
   * Log in as an admin.  
   * Go to **Branding \> Phone Provider \> Custom** (for Text/SMS only).  
   * Add a secret called `TDN_SECRET` \= `AUTH0_SECRET`  
-  * define **AUTH0\_SECRET** yourself, also set in your SMS+ env  
+    * define **AUTH0\_SECRET** yourself, also set in your SMS+ env
+  * Add another secret called TDN_URL set to the Auth0 hook URL value from TypingDNA (e.g., https://typingdna.id/hooks/auth0-sms)
   * Paste the following Node code into the "Provider Configuration" and then save/deploy it.  
     ```
-    exports.onExecuteCustomPhoneProvider = async (event, api) => { 
-        if (!event.notification.message_type.startsWith('otp')) return; 
-        const response = await fetch('https://yourdomain/hooks/cybersolve-auth0-sms', {
-            method: 'POST', 
-            headers: { 
-                'Content-Type': 'application/json', 
-                'Authorization': 'Bearer ${event.secrets.TDN_SECRET}'  
-            },  
-            body: JSON.stringify({ 
-                recipient: event.notification.recipient, 
+    exports.onExecuteCustomPhoneProvider = async (event, api) => {
+        if (!event.notification.message_type.startsWith('otp')) return;
+        const response = await fetch('${event.secrets.TDN_URL}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${event.secrets.TDN_SECRET}`
+            },
+            body: JSON.stringify({
+                recipient: event.notification.recipient,
                 message:      event.notification.as_text,
                 code:      event.notification.code
             })
-        }); 
+        });
         if (!response.ok) {
             console.log(`Bridge error ${response.status}: ${await response.text()}`);
             throw new Error('TypingDNA bridge failed');
